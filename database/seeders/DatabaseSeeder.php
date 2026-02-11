@@ -15,10 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create([
+        User::firstOrCreate(
+        ['email' => 'admin@bonitastudio.com'],
+        [
             'name' => 'Admin',
-            'email' => 'admin@bonitastudio.com',
             'password' => bcrypt('password'),
+            'email_verified_at' => now(),
+        ]
+        );
+
+        $this->call([
+            ContentSeeder::class ,
         ]);
     }
 }
