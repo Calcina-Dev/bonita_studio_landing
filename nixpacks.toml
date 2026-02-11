@@ -1,49 +1,26 @@
-[phases.setup]
-nixPkgs = [
-  "php84",
-  "php84Packages.composer",
-
-  "php84Extensions.pdo_mysql",
-  "php84Extensions.pdo_pgsql",
-  "php84Extensions.bcmath",
-  "php84Extensions.fileinfo",
-  "php84Extensions.tokenizer",
-  "php84Extensions.mbstring",
-  "php84Extensions.curl",
-  "php84Extensions.gd",
-  "php84Extensions.zip",
-  "php84Extensions.intl",
-
-  "nodejs_20",
-  "npm-9_x",
-  "nginx",
-  "unzip"
-]
+[variables]
+NIXPACKS_PHP_VERSION = "8.4"
+NIXPACKS_NODE_VERSION = "20"
+NIXPACKS_PHP_EXTENSIONS = "pdo_mysql,pdo_pgsql,bcmath,fileinfo,tokenizer,mbstring,curl,gd,zip,intl"
 
 [phases.build]
 cmds = [
-  "php -v",
-  "which php",
-  "composer -V",
-
-  "mkdir -p bootstrap/cache storage/framework/sessions storage/framework/views storage/framework/cache",
-  "composer install --no-dev --optimize-autoloader --no-interaction --no-progress",
-  "npm install",
-  "npm run build"
+    "mkdir -p bootstrap/cache storage/framework/sessions storage/framework/views storage/framework/cache",
+    "composer install --no-dev --optimize-autoloader --no-interaction --no-progress",
+    "npm install",
+    "npm run build"
 ]
 
 [phases.start]
 cmds = [
-  "php artisan migrate --force",
-  "php artisan storage:link || true",
-  "php artisan config:cache",
-  "php artisan route:cache",
-  "php artisan view:cache",
-
-  "chmod -R 775 storage bootstrap/cache || true",
-
-  "echo 'Starting Nginx + PHP-FPM...'",
-  "perl /assets/nginx-config-generator.pl > /etc/nginx/nginx.conf",
-  "php-fpm -D",
-  "nginx -c /etc/nginx/nginx.conf"
+    "php artisan migrate --force",
+    "php artisan storage:link || true",
+    "php artisan config:cache",
+    "php artisan route:cache",
+    "php artisan view:cache",
+    "chmod -R 775 storage bootstrap/cache || true",
+    "echo 'Starting Nginx + PHP-FPM...'",
+    "perl /assets/nginx-config-generator.pl > /etc/nginx/nginx.conf",
+    "php-fpm -D",
+    "nginx -c /etc/nginx/nginx.conf"
 ]
