@@ -1,0 +1,110 @@
+@import 'tailwindcss';
+
+/* Custom Animations */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: 'Playfair Display', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+
+    /* Nude / Beige Palette */
+    --color-nude-50: #fdfbf7;
+    --color-nude-100: #f7f4ef;
+    --color-nude-200: #efe8dd;
+    --color-nude-300: #e0d0bf;
+    --color-nude-400: #d2bba0;
+    --color-nude-900: #5c4d3c;
+
+    /* Wine / Deep Pink Palette */
+    --color-wine-50: #fdf2f8;
+    --color-wine-100: #fce7f3;
+    --color-wine-500: #ec4899;
+    /* Fallback brand */
+    --color-wine-800: #881337;
+    --color-wine-900: #4c0519;
+    --color-wine-950: #4a0418;
+
+    /* Taupe / Earth Palette (Reference Design) */
+    --color-taupe-500: #9C8974;
+    --color-taupe-600: #8C7964;
+    --color-taupe-900: #5D5045;
+
+    --color-brand: var(--color-brand);
+    --color-brand-hover: var(--color-brand-hover);
+
+    /* Animaciones */
+    --animate-fade-in: fade-in 0.8s ease-out;
+    --animate-slide-up: slide-up 1s ease-out;
+    --animate-float: float 6s ease-in-out infinite;
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-up {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+}
+
+/* Glassmorphism Utilities */
+.glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
