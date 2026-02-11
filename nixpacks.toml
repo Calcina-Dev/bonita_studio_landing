@@ -1,0 +1,24 @@
+[phases.setup]
+nixPkgs = ["php82", "php82Extensions.pdo_mysql", "php82Extensions.bcmath", "php82Extensions.fileinfo", "php82Extensions.tokenizer", "php82Extensions.mbstring", "php82Extensions.curl", "php82Extensions.gd", "php82Extensions.zip", "php82Extensions.intl", "nodejs_20", "npm-9_x", "nginx"]
+
+[phases.build]
+cmds = [
+    "mkdir -p bootstrap/cache storage/framework/sessions storage/framework/views storage/framework/cache",
+    "composer install --no-dev --optimize-autoloader --no-interaction --no-progress",
+    "npm install",
+    "npm run build"
+]
+
+[phases.start]
+cmds = [
+    "php artisan migrate --force",
+    "php artisan storage:link",
+    "php artisan config:cache",
+    "php artisan route:cache",
+    "php artisan view:cache",
+    "chmod -R 777 storage bootstrap/cache",
+    "echo 'Starting Nginx + PHP-FPM...'",
+    "perl /assets/nginx-config-generator.pl > /etc/nginx/nginx.conf",
+    "php-fpm -D",
+    "nginx -c /etc/nginx/nginx.conf"
+]
